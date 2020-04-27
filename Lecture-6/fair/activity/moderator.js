@@ -17,6 +17,7 @@ let uToAdd = process.argv[3];
         let pWillBeSendPromise = unNpsEl[1].sendKeys(pwd);
         await Promise.all([uNameWillBeSendPromise, pWillBeSendPromise]);
         let loginBtn = await driver.findElement(swd.By.css("button[data-analytics=LoginPassword"));
+        await loginBtn.click();
         console.log("We have logged in");
     }
     catch(err) {
