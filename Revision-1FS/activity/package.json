@@ -1,0 +1,15 @@
+{
+  "name": "revision-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "copydemo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "uniqid": "^5.2.0",
+    "uuid": "^7.0.3"
+  }
+}
