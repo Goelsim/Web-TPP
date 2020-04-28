@@ -17,41 +17,41 @@ function WillBeReadFile(path) {
 WillBeReadFile('f1.html')
     .then(function (data) {
         if (data.byteLength > 20) {
-            Campfile1('f2.html')
+            CheckFile1('f2.html')
         } else {
-            Campfile2('f3.html')
+            CheckFile2('f3.html')
         }
     }).catch((err) => {
         console.error(err)
     })
 
-function Campfile1(path) {
+function CheckFile1(path) {
     WillBeReadFile(path)
         .then((data) => {
             if (data.byteLength > 40) {
-                Campfile('f6.html')
+                CheckFile('f6.html')
             } else {
-                Campfile('f7.html')
+                CheckFile('f7.html')
             }
         }).catch((err) => {
             console.log(err);
         })
 }
 
-function Campfile2(path) {
+function CheckFile2(path) {
     WillBeReadFile(path)
         .then((data) => {
             if (data.byteLength < 30) {
-                Campfile('f4.html')
+                CheckFile('f4.html')
             } else {
-                Campfile('f5.html')
+                CheckFile('f5.html')
             }
         }).catch((err) => {
             console.log(err);
         })
 }
 
-function Campfile(path) {
+function CheckFile(path) {
     WillBeReadFile(path)
         .then(() => {
             console.log("DONE !!")

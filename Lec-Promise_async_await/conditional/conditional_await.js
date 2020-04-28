@@ -16,32 +16,32 @@ function WillBeReadFile(path) {
 async function res() {
     let a = await WillBeReadFile('f1.html')
     if (a.byteLength > 20) {
-        Campfile1('f2.html')
+        CheckFile1('f2.html')
     } else {
-        Campfile2('f3.html')
+        CheckFile2('f3.html')
     }
 
 } 
 
-async function Campfile1(path) {
+async function CheckFile1(path) {
     let b = WillBeReadFile(path)
     if (b.byteLength > 40) {
-        Campfile('f6.html')
+        CheckFile('f6.html')
     } else {
-        Campfile('f7.html')
+        CheckFile('f7.html')
     }
 }
 
-async function Campfile2(path) {
+async function CheckFile2(path) {
     let c = WillBeReadFile(path)
     if (c.byteLength < 30) {
-        Campfile('f4.html')
+        CheckFile('f4.html')
     } else {
-        Campfile('f5.html')
+        CheckFile('f5.html')
     }
 }
 
-async function Campfile(path) {
+async function CheckFile(path) {
     let d = await WillBeReadFile(path)
 }
 
