@@ -13,12 +13,12 @@ async function myFun1() {
     console.log(f2 + "")
 }
 
-async function myFun() {
+async function myFun2() {
     let f3 = await fs.promises.readFile(files[2]);
     console.log(f3 + "")
 }
 
-async function myFun() {
+async function myFun3() {
     let f4 = await fs.promises.readFile(files[3]);
     console.log(f4 + "")
 }
