@@ -1,10 +1,9 @@
-//serial_loop_promise
 let fs = require("fs");
 // readFiles(0)
 // sequentially n number files read
 // function readFiles(i) {
   //   if (i == files.length) {
-    //     return;node
+    //     return;
     //   }
     //   fs.readFile(files[i], function (err, data) {
       //     // console.log(err);
@@ -28,7 +27,7 @@ let fs = require("fs");
 }
 promiseMultiFileReader().then(function(data){
   console.log("file 5 will be printed");
-//   console.log(data);
+  console.log(data);
 })
 // let f1WillBereadPromise = filezWillBeReadPromise.then(function (data) {
 //   console.log(data);
