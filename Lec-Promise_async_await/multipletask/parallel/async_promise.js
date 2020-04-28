@@ -1,4 +1,4 @@
-parallel_multiTask
+// parallel_multiTask
 let fs = require("fs");
 
 let files = ["../../f1.txt", "../../f2.txt", "../../f3.txt", "../../f4.txt", "../../f5.txt",]
