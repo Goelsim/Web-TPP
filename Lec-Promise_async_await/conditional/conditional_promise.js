@@ -1,32 +1,61 @@
-let fs = require("fs");
-let files = ["../f1.txt", "../f2.txt", "../f3.txt", "../f1.mp4", "../f2.mp4"];
-fs.readFile(files[0], function (err, data) {
-  console.log(`File 1 data ${data.byteLength}`);
-  if (data.byteLength > 20) {
-    fs.readFile(files[1], function (err, data) {
-      console.log(`File2 Data ${data.byteLength}`);
-      if (data.byteLength > 40) {
-        fs.readFile(files[5], function (err, data) {
-          console.log(`File 6 Data ${data.byteLength}`);
+const fs = require('fs');
+
+
+function WillBeReadFile(path) {
+    return new Promise((resolve, reject) => {
+        fs.readFile(path, (err, data) => {
+            if (err) {
+                reject(err);
+            } else {
+                console.log(path + " " + data.byteLength);
+                resolve(data)
+            }
         })
-      } else {
-        fs.readFile(files[6], function (err, data) {
-          console.log(`File 7 Data ${data.byteLength}`);
-        })
-      }
     })
-  } else {
-    fs.readFile(files[2], function (err, data) {
-      console.log(`File3 Data ${data}`)
-      if (data.byteLength < 30) {
-        fs.readFile(files[3], function (err, data) {
-          console.log(`Data of File 4 ${data.byteLength}`);
-        })
-      } else {
-        fs.readFile(files[4], function (err, data) {
-          console.log(`Data of File 5 ${data.byteLength}`);
-        })
-      }
+}
+
+WillBeReadFile('f1.html')
+    .then(function (data) {
+        if (data.byteLength > 20) {
+            Campfile1('f2.html')
+        } else {
+            Campfile2('f3.html')
+        }
+    }).catch((err) => {
+        console.error(err)
     })
-  }
-})
+
+function Campfile1(path) {
+    WillBeReadFile(path)
+        .then((data) => {
+            if (data.byteLength > 40) {
+                Campfile('f6.html')
+            } else {
+                Campfile('f7.html')
+            }
+        }).catch((err) => {
+            console.log(err);
+        })
+}
+
+function Campfile2(path) {
+    WillBeReadFile(path)
+        .then((data) => {
+            if (data.byteLength < 30) {
+                Campfile('f4.html')
+            } else {
+                Campfile('f5.html')
+            }
+        }).catch((err) => {
+            console.log(err);
+        })
+}
+
+function Campfile(path) {
+    WillBeReadFile(path)
+        .then(() => {
+            console.log("DONE !!")
+        }).catch((err) => {
+            console.log(err);
+        })
+}

@@ -8,7 +8,13 @@ f1.then(function(data1) {
         let f3 = fs.promises.readFile("../../f3.txt");
         f3.then(function(data3) {
             console.log("F3 FileContent " + data3.byteLength);
+        }).catch(function(err) {
+            console.log(err);;
         });
+    }).catch(function (err) {
+        console.log(err);
     });
+}).catch(function (err) {
+    console.log(err);
 })
 
