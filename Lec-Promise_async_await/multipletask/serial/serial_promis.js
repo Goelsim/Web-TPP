@@ -17,4 +17,3 @@ f1.then(function(data1) {
 }).catch(function (err) {
     console.log(err);
 })
-
