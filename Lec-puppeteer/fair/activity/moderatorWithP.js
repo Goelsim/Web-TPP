@@ -45,7 +45,7 @@ async function getMeQuestionElement(page, qidx, mpUrl) {
     let pQidx = qidx % 10;
     console.log(pidx + " " + pQidx);
     await page.goto(mpUrl);
-    await waitorLoader(page);
+    await waitForLoader(page);
     //await page.waitForNavigation({ waitUntil : "networkidle0"});
     await page.waitForSelector(".pagination ul li", { visible : true});
     let paginations = await page.$$(".pagination ul li");
