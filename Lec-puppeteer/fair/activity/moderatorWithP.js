@@ -19,25 +19,31 @@ let fs = require("fs");
     // let uWillBeTypedP = page.type("#input-1", user);
     // let pWillBeTypedP = page.type("#input-2", pwd);
     // await Promise.all([uWillBeTypedP, pWillBeTypedP]);
-    await page.click("button[data-anayltics=LoginPassword]");
+    await page.click("button[data-analytics=LoginPassword]");
     await page.waitForNavigation({ waitUntil : "networkidle0" })
-    await page.waitForSelector("a[data-anayltics=NavBarProfileDropDown]", {visible : true});
-    await page.click("a[data-anayltics=NavBarProfileDropDown]");
-    await page.click("a[data-anayltics=NavBarProfileDropDownAdministration]");
+    await page.waitForSelector("a[data-analytics=NavBarProfileDropDown]", {visible : true});
+    await page.click("a[data-analytics=NavBarProfileDropDown]");
+    await page.click("a[data-analytics=NavBarProfileDropDownAdministration]");
+    await page.waitForNavigation({ waitUntil : "networkidle0"});
     await waitForLoader(page);
-    let tabs = await page.$$(".administration header ul li");
-    await tabs[1].click();
-    let mpUrl = await page.url();
+    await page.waitForSelector(".administration header", {visible: true});
+    let tabs = await page.$$(".administration header ul li a");
+    let href = page.evaluate(function (el) {
+        return el.getAttribute("href");
+    }, tabs[1]);
+    await page.goto(href, { waitUntil : "networkidle0"});
+    //await tabs[1].click();
+    let mpUrl = href;
     let qidx = 0;
     while(true) {
         let question = await getMeQuestionElement(page, qidx, mpUrl);
-        if(question == null) {
-            console.log("All Questions processed");
-            return;
-        }
-        //await handleQuestion(page, question, process.argv[3]);
-        qidx++;
+    //     if(question == null) {
+    //         console.log("All Questions processed");
+    //         return;
+    //     }
+    //     qidx++;
     }
+    await handleQuestion(page, question, process.argv[3]);
 })();
 
 async function getMeQuestionElement(page, qidx, mpUrl) {
@@ -45,6 +51,7 @@ async function getMeQuestionElement(page, qidx, mpUrl) {
     let pQidx = qidx % 10;
     console.log(pidx + " " + pQidx);
     await page.goto(mpUrl);
+    await page.waitForNavigation({ waitUntil : "networkidle0"});
     await waitForLoader(page);
     //await page.waitForNavigation({ waitUntil : "networkidle0"});
     await page.waitForSelector(".pagination ul li", { visible : true});
@@ -74,9 +81,23 @@ async function getMeQuestionElement(page, qidx, mpUrl) {
     }
 }
 
-async function waitorLoader (page) {
+async function waitForLoader (page) {
     await page.waitForSelector("#ajax-msg", {
         visible : false
     });
 }
 
+async function handleQuestion(page, question, uToAdd) {
+    let qUrl = await page.evaluate(function (el) {
+        return el.getAttribute("href")
+    }, question);
+    console.log(qUrl);
+    await page.goto(qUrl);
+    await page.waitForNavigation({ waitUntil : "networkidle0"});
+    await waitForLoader(page);
+    await page.waitForSelector("li[data-tab=moderators]"), {visible: true};
+    await page.click("li[data-tab=moderators");
+    await page.type("#moderator", uToAdd);
+    await page.keyboard.press("Enter");
+    await page.click(".save-challeneg.btn.btn-green");
+}
