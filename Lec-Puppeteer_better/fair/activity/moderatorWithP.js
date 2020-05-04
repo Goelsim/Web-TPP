@@ -33,29 +33,51 @@ let fs = require("fs");
       [tab.waitForNavigation({ waitUntil: "networkidle0" }),
       mTabs[1].click("a[data-analytics=NavBarProfileDropDownAdministration]"),]);
 
-      await handleQuestion(tab, browser);
+      await handleSinglePageQuestion(tab, browser);
   }
   catch(err) {
     console.log(err);
   }
 })();
 
-async function handleQuestion(tab, browser) {
+async function handleSinglePageQuestion(tab, browser) {
   await tab.waitForSelector(".backbone.block-center");
   let qnocPage = await tab.$$(".backbone.block-center");
   let pArr = [];
   for(let i = 0; i < qnocPage.length; i++) {
-    let newTab = await browser.newPage();
     let href = await tab.evaluate(function (elem) {
       return elem.getAttribute("href");
     }, qnocPage[i]);
+    let newTab = await browser.newPage();
+
     let mWillAddedPromisetocQ = handleSingleQuestion(newTab, "https://www.hackerrank.com" + href);
     pArr.push(mWillAddedPromisetocQ);
   }
   await Promise.all(pArr);
+
+  await tab.waitForSelector(".pagination ul li");
+  let paginationBtn = await tab.$$(".pagination ul li");
+  let nxtBtn = paginationBtn[paginationBtn.length - 2];
+  let className = await tab.evaluate(function (nxtBtn) {
+    return nxtBtn.getAttribute("class");
+  }, nxtBtn);
+  if(className == "disabled") {
+    return;
+  }
+  else {
+    await Promise.all([nxtBtn.click(), tab.waitForNavigation({ waitUntil: "networkidle0" })]);
+    await handleSinglePageQuestion(tab, browser);
+  }
 }
 
 async function handleSingleQuestion(newTab, link) {
   
-  await newTab.goto(link);
+  await newTab.goto(link, { waitUntil: "networkidle0"});
+  await newTab.waitForSelector(".tag");
+  await newTab.click("li[data-tab=moderators]");
+  await newTab.waitForSelector("input[id=moderator]", { visible: true });
+  await newTab.type("#moderator", "goelsimran10");
+  await newTab.keyboard.press("Enter");
+  await newTab.click(".save-challenge.btn.btn-green");
+  await newTab.close();
 }
