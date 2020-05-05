@@ -9,5 +9,16 @@ def is_prime(num)
     return true
 end
 
-a = is_prime(21)
-puts "Number 21 is " + a.to_s()
+# a = is_prime(11)
+# puts "Number 11 is " + a.to_s()
+
+def print_prime(num)
+    for i in (2..num)
+        is_status = is_prime(i)
+        if (is_status == true)
+            puts i
+        end
+    end
+end
+
+print_prime(20)
