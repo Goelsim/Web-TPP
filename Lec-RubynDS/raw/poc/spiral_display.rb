@@ -25,30 +25,30 @@ def spiral_display(arr)
 
     while(cntr < tn)
         for i in (minr..maxr)
-            while(cntr < tn)
+            if(cntr < tn)
                 print(arr[i][minc].to_s + " ")
                 cntr = cntr + 1
             end
         end
         minc = minc + 1
         for i in (minc..maxc)
-            while(cntr < tn)
-            print(arr[maxr][i].to_s + " ")
-            cntr = cntr + 1
+            if(cntr < tn)
+                print(arr[maxr][i].to_s + " ")
+                cntr = cntr + 1
             end
         end
         maxr = maxr - 1
         for i in (maxr).downto(minr)
-            while(cntr < tn)
-            print(arr[i][maxc].to_s + " ")
-            cntr = cntr + 1
+            if(cntr < tn)
+                print(arr[i][maxc].to_s + " ")
+                cntr = cntr + 1
             end
         end
         maxc = maxc - 1
         for i in (maxc).downto(minc)
-            while(cntr < tn)
-            print(arr[minr][i].to_s + " ")
-            cntr = cntr + 1
+            if(cntr < tn)
+                print(arr[minr][i].to_s + " ")
+                cntr = cntr + 1
             end
         end
         minr = minr + 1
