@@ -7,7 +7,7 @@ let nPost = process.argv[4];
   // browser create => icognito mode,fullscreen
   try {
     let data = await fs.promises.readFile(cFile);
-    let { url, pwd, user } = JSON.parse(data)[1];
+    let { url, pwd, user } = JSON.parse(data);
     // launch browser
     let browser = await puppeteer.launch({
       headless: false,
