@@ -1,0 +1,1 @@
+node "fb.js" "./credentialsFB.json" "Sim G"
