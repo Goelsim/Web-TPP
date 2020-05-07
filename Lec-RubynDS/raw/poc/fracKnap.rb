@@ -34,7 +34,7 @@ for i in (0..prices.length - 1)
     puts items[i]
 end
 
-ratio_arr = items.sort()
+items = items.sort()
 
 # for in (0..items.length - 1)
 #     puts ratio_arr[i]
@@ -53,6 +53,7 @@ while(idx < items.length)
         rc = 0
         break
     end
+    idx += 1
 end
 
 puts vib
