@@ -1,3 +1,5 @@
+require 'algorithms'
+include Containers
 class Edge
     attr_accessor :vtx, :wt
     def initialize(vtx, wt)
